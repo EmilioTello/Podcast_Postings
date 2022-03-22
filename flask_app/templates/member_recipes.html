@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Member Recipes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <!-- <link rel="stylesheet" href="../static/css/debug.css"> -->
+</head>
+<body>
+    <nav class="navbar mb-5 is-spaced is-light has-shadow" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-size-5 has-text-weight-dark" href="/dashboard">Grandma's Kitchen</a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-start">
+
+                <a class="navbar-item is-light" href="/dashboard">
+                Dashboard
+                </a>
+
+                <a class="navbar-item" href="/recipe/new">
+                Add New Recipe
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                    Categories
+                    </a>
+        
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="/recipes/Breakfast">
+                        Breakfast
+                        </a>
+                        <a class="navbar-item" href="/recipes/Lunch">
+                        Lunch
+                        </a>
+                        <a class="navbar-item" href="/recipes/Dinner">
+                        Dinner
+                        </a>
+                        <a class="navbar-item" href="/recipes/Side_App">
+                        Side/App
+                        </a>
+                        <a class="navbar-item" href="/recipes/Snack">
+                        Snack
+                        </a>
+                        <a class="navbar-item" href="/recipes/Dessert">
+                        Dessert
+                        </a>
+                        <a class="navbar-item" href="/recipes/Drink">
+                        Drink
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="mr-4 is-size-5 has-text-weight-dark">Welcome, {{member.first_name}}</div>
+                    <div class="buttons">
+                        <a class="button is-dark" href="/logout">
+                        Log out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h4 class="title">Here are all of the recipes added by: {{adder.first_name}} {{adder.last_name}}</h4>
+        <div class="table-container">
+            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Recipe Name</th>
+                        <th>Under 30 Minutes?</th>
+                        <th>Category</th>
+                        <th>Added By</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for recipe in recipes %}
+                    <tr>
+                        <td><a href="/recipe/{{recipe.id}}" class="btn btn-info">{{recipe.name}}</a></td>
+                        {% if recipe.under_30 == 1 %}
+                        <td><a href="/recipes/{{recipe.under_30}}" class="btn btn-info">Yes</a></td>
+                        {% else %}
+                        <td><a href="/recipes/{{recipe.under_30}}" class="btn btn-info">No</a></td>
+                        {% endif %}
+                        <td><a href="/recipes/{{recipe.category}}" class="btn btn-info">{{recipe.category}}</a></td>
+                        <td><a href="/member/{{recipe.member_id}}" class="btn btn-info">{{recipe.creator.first_name}} {{recipe.creator.last_name}}</a></td>
+                        <td>
+                            <a href="/recipe/{{recipe.id}}" class="btn btn-info">View</a>
+                            {% if recipe.member_id == session.member_id%}
+                            <a href="/recipe/edit/{{recipe.id}}" class="btn btn-info">Edit</a>
+                            <a href="/recipe/destroy/{{recipe.id}}" class="btn btn-info">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

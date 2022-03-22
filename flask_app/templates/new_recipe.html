@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Recipe</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <!-- <link rel="stylesheet" href="../static/css/debug.css"> --></head>
+<body>
+    <nav class="navbar mb-5 is-spaced is-light has-shadow" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-size-5 has-text-weight-dark" href="/dashboard">Grandma's Kitchen</a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item is-light" href="/dashboard">
+                Dashboard
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                    Categories
+                    </a>
+        
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="/recipes/Breakfast">
+                        Breakfast
+                        </a>
+                        <a class="navbar-item" href="/recipes/Lunch">
+                        Lunch
+                        </a>
+                        <a class="navbar-item" href="/recipes/Dinner">
+                        Dinner
+                        </a>
+                        <a class="navbar-item" href="/recipes/Side_App">
+                        Side/App
+                        </a>
+                        <a class="navbar-item" href="/recipes/Snack">
+                        Snack
+                        </a>
+                        <a class="navbar-item" href="/recipes/Dessert">
+                        Dessert
+                        </a>
+                        <a class="navbar-item" href="/recipes/Drink">
+                        Drink
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="mr-4 is-size-5 has-text-weight-dark">Welcome, {{member.first_name}}</div>
+                    <div class="buttons">
+                        <a class="button is-dark" href="/logout">
+                        Log out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-one-fifth">
+            </div>
+            <form action='/recipe/create' method='post' class="column">
+                <h4 class="title">Add New Recipe</h4>
+                <div class="has-text-danger">
+                    {% with messages = get_flashed_messages(category_filter=['recipe']) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="field">
+                    <label class="label" for='name'>Name: </label>
+                    <div class="control">
+                        <input class="input" type="text" name='name' id='name'>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="radio" for="under_30">Under 30 Minutes?</label>
+                    <div class="control">
+                        <label class="radio">
+                            <input type='radio' name='under_30' value='1'>
+                                <label for='1'>Yes</label>
+                            <input type='radio' name='under_30' value='0' checked>
+                                <label for='0'>No</label>
+                        </label>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='category'>Category: </label>
+                    <div class="control">
+                        <div class="select" id='category'>
+                            <select name='category'>
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Dinner">Dinner</option>
+                                <option value="Side_App">Side/App</option>
+                                <option value="Snack">Snack</option>
+                                <option value="Dessert">Dessert</option>
+                                <option value="Drink">Drink</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='ingredients'>Ingredients: </label>
+                    <div class="control">
+                        <textarea class="textarea" name='ingredients' rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='instructions'>Instructions: </label>
+                    <div class="control">
+                        <textarea class="textarea" name='instructions' rows="8"></textarea>
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link" type="submit" value="Create Recipe">Add Recipe</button>
+                    </div>
+                </div>
+            </form>
+            <div class="column is-one-fifth">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

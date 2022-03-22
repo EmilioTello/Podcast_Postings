@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register/Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <!-- <link rel="stylesheet" href="../static/css/debug.css"> -->
+</head>
+<body>
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+            </div>
+            <form action='/register', method='post' class="column">
+                <h1 class="title">Register</h1>
+                <div class="has-text-danger">
+                    {% with messages = get_flashed_messages(category_filter=['register']) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="field">
+                    <label class="label" for='first_name'>First Name: </label>
+                    <div class="control">
+                        <input class="input" type="text" name='first_name' id='first_name'>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='last_name'>Last Name: </label>
+                    <div class="control">
+                        <input class="input" type="text" name='last_name' id='last_name'>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='email'>Email: </label>
+                    <div class="control">
+                        <input class="input" type="text" name='email' id='email'>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='password'>Password: </label>
+                    <div class="control">
+                        <input class="input" type="password" name='password' id='password'>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='confirm_password'>Confirm Password: </label>
+                    <div class="control">
+                        <input class="input" type="password" name='confirm_password' id='confirm_password'>
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link">Register</button>
+                    </div>
+                </div>
+            </form>
+            <div class="column">
+            </div>
+            <form action='/login', method='post' class="column">
+                <h1 class="title">Login</h1>
+                <div class="has-text-danger">
+                    {% with messages = get_flashed_messages(category_filter=['login']) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="field">
+                    <label class="label" for='email'>Email: </label>
+                    <div class="control">
+                        <input class="input" type="text" name='email' id='email'>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='password'>Password: </label>
+                    <div class="control">
+                        <input class="input" type="password" name='password' id='password'>
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link">Login</button>
+                    </div>
+                </div>
+            </form>
+            <div class="column">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
