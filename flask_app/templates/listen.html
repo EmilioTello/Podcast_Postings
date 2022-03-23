@@ -2,17 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Listen</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-    <!-- <link rel="stylesheet" href="../static/css/debug.css"></head> -->
+    <!-- <link rel="stylesheet" href="../static/css/debug.css"> -->
+</head>
 <body>
     <nav class="navbar mb-5 is-spaced is-light has-shadow" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item is-size-5 has-text-weight-dark" href="/dashboard">Grandma's Kitchen</a>
-
+            <a class="navbar-item is-size-5 has-text-weight-dark" href="/dashboard">Podcast Postings</a>
+            
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -26,8 +26,8 @@
                 Dashboard
                 </a>
 
-                <a class="navbar-item" href="/recipe/new">
-                Add New Recipe
+                <a class="navbar-item" href="/review/new">
+                Add New Review
                 </a>
 
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -36,26 +36,41 @@
                     </a>
         
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="/recipes/Breakfast">
-                        Breakfast
+                        <a class="navbar-item" href="/reviews/Arts">
+                        Arts
                         </a>
-                        <a class="navbar-item" href="/recipes/Lunch">
-                        Lunch
+                        <a class="navbar-item" href="/reviews/Business">
+                        Business
                         </a>
-                        <a class="navbar-item" href="/recipes/Dinner">
-                        Dinner
+                        <a class="navbar-item" href="/reviews/Comedy">
+                        Comedy
                         </a>
-                        <a class="navbar-item" href="/recipes/Side_App">
-                        Side/App
+                        <a class="navbar-item" href="/reviews/Education">
+                        Education
                         </a>
-                        <a class="navbar-item" href="/recipes/Snack">
-                        Snack
+                        <a class="navbar-item" href="/reviews/Fiction">
+                        Fiction
                         </a>
-                        <a class="navbar-item" href="/recipes/Dessert">
-                        Dessert
+                        <a class="navbar-item" href="/reviews/Fitness">
+                        Fitness
                         </a>
-                        <a class="navbar-item" href="/recipes/Drink">
-                        Drink
+                        <a class="navbar-item" href="/reviews/Family">
+                        Family
+                        </a>
+                        <a class="navbar-item" href="/reviews/News">
+                        News
+                        </a>
+                        <a class="navbar-item" href="/reviews/Culture">
+                        Culture
+                        </a>
+                        <a class="navbar-item" href="/reviews/Sports">
+                        Sports
+                        </a>
+                        <a class="navbar-item" href="/reviews/Crime">
+                        Crime
+                        </a>
+                        <a class="navbar-item" href="/reviews/Shows">
+                        Shows
                         </a>
                     </div>
                 </div>
@@ -73,27 +88,17 @@
             </div>
         </div>
     </nav>
+
     <div class="columns">
         <div class="column is-one-fifth"></div>
         <div class="column">
             <div class="box">
                 <div class="card">
                     <div class="card-content">
-                        <h2 class="is-size-1 has-text-weight-medium mb-3">{{recipe.name}}</h2>
-                        <p class="block is-size-4">Category:  {{recipe.category}}</p>
-                        <p class="block is-size-4">Under 30 Minutes:
-                            {%  if recipe.under_30 == 1 %}
-                            Yes
-                            {% else %}
-                            No
-                            {% endif %}
-                        </p>
-                        <p class="block is-size-4">Ingredients:  {{recipe.ingredients}}</p>
-                        <p class="block is-size-4">Instructions:  {{recipe.instructions}}</p>
-                        <p class="block is-size-4">Added By:  {{recipe.creator.first_name}} {{recipe.creator.last_name}}</p>
-                        {% if recipe.member_id == session.member_id%}
-                        <p><a href="/recipe/edit/{{recipe.id}}" class="button is-link">Edit Recipe</a></p>
-                        {% endif %}
+                        <h2 class="is-size-1 has-text-weight-medium mb-3">Check Out This Podcast!</h2>
+                        <h4 class="is-size-3 has-text-weight-medium mb-3">Want to leave a review for it?</h4>
+                        <p class="block is-size-4"><a href="/review/new" class="btn btn-info">Click Here</a></p>
+                        
                     </div>
                 </div>
             </div>

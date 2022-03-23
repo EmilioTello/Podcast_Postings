@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Podcast Postings</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-    <!-- <link rel="stylesheet" href="../static/css/debug.css"> -->
-</head>
+    <!-- <link rel="stylesheet" href="../static/css/debug.css"></head> -->
 <body>
     <nav class="navbar mb-5 is-spaced is-light has-shadow" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -22,6 +22,9 @@
 
         <div class="navbar-menu">
             <div class="navbar-start">
+                <a class="navbar-item is-light" href="/dashboard">
+                Dashboard
+                </a>
 
                 <a class="navbar-item" href="/review/new">
                 Add New Review
@@ -85,43 +88,27 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <h4 class="title">Want to check out a new podcast? <a href="/listen" class="btn btn-info">Click Here</a></h4>
-        <h4 class="title">Here are all of the reviews:</h4>
-        <div class="table-container">
-            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
-                <thead>
-                    <tr>
-                        <th>Review Title</th>
-                        <th>Podcast Name</th>
-                        <th>Category</th>
-                        <th>Host</th>
-                        <th>Stars</th>
-                        <th>Added By</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for review in reviews %}
-                    <tr>
-                        <td><a href="/review/{{review.id}}" class="btn btn-info">{{review.review_title}}</a></td>
-                        <td><a href="/reviews/{{review.podcast_name}}" class="btn btn-info">{{review.podcast_name}}</a></td>
-                        <td><a href="/reviews/{{review.category}}" class="btn btn-info">{{review.category}}</a></td>
-                        <td><a href="/reviews/{{review.host}}" class="btn btn-info">{{review.host}}</a></td>
-                        <td><a href="/reviews/{{review.stars}}" class="btn btn-info">{{review.stars}}</a></td>
-                        <td><a href="/member/{{review.member_id}}" class="btn btn-info">{{review.creator.first_name}} {{review.creator.last_name}}</a></td>
-                        <td>
-                            <a href="/review/{{review.id}}" class="btn btn-info">View</a>
-                            {% if review.member_id == session.member_id%}
-                            <a href="/review/edit/{{review.id}}" class="btn btn-info">Edit</a>
-                            <a href="/review/destroy/{{review.id}}" class="btn btn-info">Delete</a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <div class="columns">
+        <div class="column is-one-fifth"></div>
+        <div class="column">
+            <div class="box">
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="is-size-1 has-text-weight-medium mb-3">{{review.review_title}}</h2>
+                        <p class="block is-size-4">Podcast Name:  {{review.podcast_name}}</p>
+                        <p class="block is-size-4">Category:  {{review.category}}</p>
+                        <p class="block is-size-4">Host(s):  {{review.host}}</p>
+                        <p class="block is-size-4">Stars:  {{review.stars}}</p>
+                        <p class="block is-size-4">Review:  {{review.review_text}}</p>
+                        <p class="block is-size-4">Added By:  {{review.creator.first_name}} {{review.creator.last_name}}</p>
+                        {% if review.member_id == session.member_id%}
+                        <p><a href="/review/edit/{{review.id}}" class="button is-link">Edit Review</a></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="column is-one-fifth"></div>
     </div>
 </body>
 </html>

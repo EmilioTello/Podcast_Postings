@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar mb-5 is-spaced is-light has-shadow" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item is-size-5 has-text-weight-dark" href="/dashboard">Grandma's Kitchen</a>
+            <a class="navbar-item is-size-5 has-text-weight-dark" href="/dashboard">Podcast Postings</a>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
@@ -27,8 +27,8 @@
                 Dashboard
                 </a>
 
-                <a class="navbar-item" href="/recipe/new">
-                Add New Recipe
+                <a class="navbar-item" href="/review/new">
+                Add New Review
                 </a>
 
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -37,26 +37,41 @@
                     </a>
         
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="/recipes/Breakfast">
-                        Breakfast
+                        <a class="navbar-item" href="/reviews/Arts">
+                        Arts
                         </a>
-                        <a class="navbar-item" href="/recipes/Lunch">
-                        Lunch
+                        <a class="navbar-item" href="/reviews/Business">
+                        Business
                         </a>
-                        <a class="navbar-item" href="/recipes/Dinner">
-                        Dinner
+                        <a class="navbar-item" href="/reviews/Comedy">
+                        Comedy
                         </a>
-                        <a class="navbar-item" href="/recipes/Side_App">
-                        Side/App
+                        <a class="navbar-item" href="/reviews/Education">
+                        Education
                         </a>
-                        <a class="navbar-item" href="/recipes/Snack">
-                        Snack
+                        <a class="navbar-item" href="/reviews/Fiction">
+                        Fiction
                         </a>
-                        <a class="navbar-item" href="/recipes/Dessert">
-                        Dessert
+                        <a class="navbar-item" href="/reviews/Fitness">
+                        Fitness
                         </a>
-                        <a class="navbar-item" href="/recipes/Drink">
-                        Drink
+                        <a class="navbar-item" href="/reviews/Family">
+                        Family
+                        </a>
+                        <a class="navbar-item" href="/reviews/News">
+                        News
+                        </a>
+                        <a class="navbar-item" href="/reviews/Culture">
+                        Culture
+                        </a>
+                        <a class="navbar-item" href="/reviews/Sports">
+                        Sports
+                        </a>
+                        <a class="navbar-item" href="/reviews/Crime">
+                        Crime
+                        </a>
+                        <a class="navbar-item" href="/reviews/Shows">
+                        Shows
                         </a>
                     </div>
                 </div>
@@ -80,9 +95,11 @@
             <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                 <thead>
                     <tr>
-                        <th>Recipe Name</th>
-                        <th>Under 30 Minutes?</th>
+                        <th>Review Title</th>
+                        <th>Podcast Name</th>
                         <th>Category</th>
+                        <th>Host</th>
+                        <th>Stars</th>
                         <th>Added By</th>
                         <th>Actions</th>
                     </tr>
@@ -90,19 +107,17 @@
                 <tbody>
                     {% for recipe in recipes %}
                     <tr>
-                        <td><a href="/recipe/{{recipe.id}}" class="btn btn-info">{{recipe.name}}</a></td>
-                        {% if recipe.under_30 == 1 %}
-                        <td><a href="/recipes/{{recipe.under_30}}" class="btn btn-info">Yes</a></td>
-                        {% else %}
-                        <td><a href="/recipes/{{recipe.under_30}}" class="btn btn-info">No</a></td>
-                        {% endif %}
-                        <td><a href="/recipes/{{recipe.category}}" class="btn btn-info">{{recipe.category}}</a></td>
-                        <td><a href="/member/{{recipe.member_id}}" class="btn btn-info">{{recipe.creator.first_name}} {{recipe.creator.last_name}}</a></td>
+                        <td><a href="/review/{{review.id}}" class="btn btn-info">{{review.review_title}}</a></td>
+                        <td><a href="/reviews/{{review.podcast_name}}" class="btn btn-info">{{review.podcast_name}}</a></td>
+                        <td><a href="/reviews/{{review.category}}" class="btn btn-info">{{review.category}}</a></td>
+                        <td><a href="/reviews/{{review.host}}" class="btn btn-info">{{review.host}}</a></td>
+                        <td><a href="/reviews/{{review.stars}}" class="btn btn-info">{{review.stars}}</a></td>
+                        <td><a href="/member/{{review.member_id}}" class="btn btn-info">{{review.creator.first_name}} {{review.creator.last_name}}</a></td>
                         <td>
-                            <a href="/recipe/{{recipe.id}}" class="btn btn-info">View</a>
-                            {% if recipe.member_id == session.member_id %}
-                            <a href="/recipe/edit/{{recipe.id}}" class="btn btn-info">Edit</a>
-                            <a href="/recipe/destroy/{{recipe.id}}" class="btn btn-info">Delete</a>
+                            <a href="/review/{{review.id}}" class="btn btn-info">View</a>
+                            {% if review.member_id == session.member_id%}
+                            <a href="/review/edit/{{review.id}}" class="btn btn-info">Edit</a>
+                            <a href="/review/destroy/{{review.id}}" class="btn btn-info">Delete</a>
                             {% endif %}
                         </td>
                     </tr>
