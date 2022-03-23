@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Review</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <!-- <link rel="stylesheet" href="../static/css/debug.css"> --></head>
+<body>
+    <nav class="navbar mb-5 is-spaced is-light has-shadow" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-size-5 has-text-weight-dark" href="/dashboard">Podcast Postings</a>
+            
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item is-light" href="/dashboard">
+                Dashboard
+                </a>
+
+                <a class="navbar-item" href="/review/new">
+                Add New Review
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                    Categories
+                    </a>
+        
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="/reviews/Arts">
+                        Arts
+                        </a>
+                        <a class="navbar-item" href="/reviews/Business">
+                        Business
+                        </a>
+                        <a class="navbar-item" href="/reviews/Comedy">
+                        Comedy
+                        </a>
+                        <a class="navbar-item" href="/reviews/Education">
+                        Education
+                        </a>
+                        <a class="navbar-item" href="/reviews/Fiction">
+                        Fiction
+                        </a>
+                        <a class="navbar-item" href="/reviews/Fitness">
+                        Fitness
+                        </a>
+                        <a class="navbar-item" href="/reviews/Family">
+                        Family
+                        </a>
+                        <a class="navbar-item" href="/reviews/News">
+                        News
+                        </a>
+                        <a class="navbar-item" href="/reviews/Culture">
+                        Culture
+                        </a>
+                        <a class="navbar-item" href="/reviews/Sports">
+                        Sports
+                        </a>
+                        <a class="navbar-item" href="/reviews/Crime">
+                        Crime
+                        </a>
+                        <a class="navbar-item" href="/reviews/Shows">
+                        Shows
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="mr-4 is-size-5 has-text-weight-dark">Welcome, {{member.first_name}}</div>
+                    <div class="buttons">
+                        <a class="button is-dark" href="/logout">
+                        Log out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-one-fifth">
+            </div>
+            <form action='/review/update' method='post' class="column">
+                <h4 class="title">Edit Review</h4>
+                <div class="has-text-danger">
+                    {% with messages = get_flashed_messages(category_filter=['review']) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <input type="hidden" name="id" value={{edit.id}}>
+                <div class="field">
+                    <label class="label" for='review_title'>Review Title: </label>
+                    <div class="control">
+                        <input class="input" type="text" name='review_title' id='review_title' value="{{edit.review_title}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='podcast_name'>Podcast Name: </label>
+                    <div class="control">
+                        <input class="input" type="text" name='podcast_name' id='podcast_name' value="{{edit.podcast_name}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='category'>Category: </label>
+                    <div class="control">
+                        <div class="select" id='category'>
+                            <select name='category'>
+                                <option value="Arts">Arts</option>
+                                <option value="Business">Business</option>
+                                <option value="Comedy">Comedy</option>
+                                <option value="Education">Education</option>
+                                <option value="Fiction">Fiction</option>
+                                <option value="Fitness">Fitness</option>
+                                <option value="Family">Family</option>
+                                <option value="News">News</option>
+                                <option value="Culture">Culture</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Crime">Crime</option>
+                                <option value="Shows">Shows</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='host'>Host(s): </label>
+                    <div class="control">
+                        <input class="input" type="text" name='host' id='host' value="{{edit.host}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='stars'>Stars: </label>
+                    <div class="control">
+                        <div class="select" id='stars'>
+                            <select name='stars'>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for='review_text'>Review: </label>
+                    <div class="control">
+                        <textarea class="textarea" name='review_text' rows="15">{{edit.review_text}}</textarea>
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link" type="submit" value="Make Edits">Update Review</button>
+                    </div>
+                </div>
+            </form>
+            <div class="column is-one-fifth">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
