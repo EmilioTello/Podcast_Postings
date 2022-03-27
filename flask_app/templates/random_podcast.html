@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Podcast</title>
+</head>
+<body>
+
+    <div>
+        <h1 class="text-center">Random Podcast</h1>
+        <h3>{{randomPodcastData['title']}}</h3>
+        <img src="{{randomPodcastData['thumbnail']}}" alt="Podcast Thumbnail">
+        <audio controls>
+            <source src="{{randomPodcastData['audio']}}" type="audio/mpeg">
+        </audio>
+        <p>{{randomPodcastData['description']}}</p>
+        <a href="{{randomPodcastData['listenNotesURL']}}">Click to see more on this Podcast from Listen Notes</a>
+    </div>
+
+</body>
+</html>

@@ -2,6 +2,7 @@ from flask import render_template, redirect, session, request, flash
 from flask_app import app
 from flask_app.models.review import Review
 from flask_app.models.member import Member
+from listennotes import podcast_api
 
 
 @app.route('/recipe/new')
@@ -118,3 +119,18 @@ def member_recipes(id):
         'id': session['member_id']
     }
     return render_template('member_recipes.html', member = Member.get_one_by_id(member_data), recipes=Recipe.get_all_recipes_from_one_member(data), adder = Member.get_one_by_id(data))
+
+@app.route('/random-podcast')
+def randomPodcast():
+    client = podcast_api.Client(api_key=None) # api-key to be added at future time, 'None' api_key is used for testing purposes
+    response = client.just_listen()
+    data = response.json()
+    randomPodcastData = {
+        'id' : data['id'],
+        'title' : data['title'],
+        'audio' : data['audio'],
+        'thumbnail' : data['thumbnail'],
+        'description' : data['description'],
+        'listenNotesURL' : data['listennotes_url']
+    }
+    return render_template('random_podcast.html', randomPodcastData=randomPodcastData)
