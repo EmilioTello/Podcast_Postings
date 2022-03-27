@@ -120,7 +120,7 @@ def member_recipes(id):
     }
     return render_template('member_recipes.html', member = Member.get_one_by_id(member_data), recipes=Recipe.get_all_recipes_from_one_member(data), adder = Member.get_one_by_id(data))
 
-@app.route('/random-podcast')
+@app.route('/listen')
 def randomPodcast():
     client = podcast_api.Client(api_key=None) # api-key to be added at future time, 'None' api_key is used for testing purposes
     response = client.just_listen()
@@ -133,4 +133,4 @@ def randomPodcast():
         'description' : data['description'],
         'listenNotesURL' : data['listennotes_url']
     }
-    return render_template('random_podcast.html', randomPodcastData=randomPodcastData)
+    return render_template('listen.html', randomPodcastData=randomPodcastData)

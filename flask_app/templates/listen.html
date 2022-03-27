@@ -96,6 +96,14 @@
                 <div class="card">
                     <div class="card-content">
                         <h2 class="is-size-1 has-text-weight-medium mb-3">Check Out This Podcast!</h2>
+                        <h3>Random Podcast</h3>
+                        <h3>{{randomPodcastData['title']}}</h3>
+                        <img src="{{randomPodcastData['thumbnail']}}" alt="Podcast Thumbnail">
+                        <audio controls>
+                            <source src="{{randomPodcastData['audio']}}" type="audio/mpeg">
+                        </audio>
+                        <p>{{randomPodcastData['description']}}</p>
+                        <a href="{{randomPodcastData['listenNotesURL']}}">Click to see more on this Podcast from Listen Notes</a>
                         <h4 class="is-size-3 has-text-weight-medium mb-3">Want to leave a review for it?</h4>
                         <p class="block is-size-4"><a href="/review/new" class="btn btn-info">Click Here</a></p>
                         
