@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar mb-5 is-spaced is-light has-shadow" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item is-size-5 has-text-weight-dark" href="/dashboard">Podcast Postings</a>
+            <a class="navbar-item is-size-4 has-text-weight-bold" href="/dashboard">Podcast Postings</a>
             
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
@@ -80,7 +80,7 @@
                 <div class="navbar-item">
                     <div class="mr-4 is-size-5 has-text-weight-dark">Welcome, {{member.first_name}}</div>
                     <div class="buttons">
-                        <a class="button is-dark" href="/logout">
+                        <a class="button is-dark has-text-danger-light" href="/logout">
                         Log out
                         </a>
                     </div>
@@ -95,7 +95,7 @@
             <div class="box">
                 <div class="card">
                     <div class="card-content">
-                        <h2 class="is-size-1 has-text-weight-medium mb-3">Check Out This Podcast!</h2>
+                        <h4 class="title">Check Out This Podcast!</h2>
                         <h3>Random Podcast</h3>
                         <h3>{{randomPodcastData['title']}}</h3>
                         <img src="{{randomPodcastData['thumbnail']}}" alt="Podcast Thumbnail">
@@ -104,8 +104,7 @@
                         </audio>
                         <p>{{randomPodcastData['description']}}</p>
                         <a href="{{randomPodcastData['listenNotesURL']}}">Click to see more on this Podcast from Listen Notes</a>
-                        <h4 class="is-size-3 has-text-weight-medium mb-3">Want to leave a review for it?</h4>
-                        <p class="block is-size-4"><a href="/review/new" class="btn btn-info">Click Here</a></p>
+                        <p class="block is-size-4 mt-4">Want to leave a review for it? <a href="/review/new" class="button is-info">Click Here</a></p>
                         
                     </div>
                 </div>

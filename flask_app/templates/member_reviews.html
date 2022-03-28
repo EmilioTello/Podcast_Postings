@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar mb-5 is-spaced is-light has-shadow" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item is-size-5 has-text-weight-dark" href="/dashboard">Podcast Postings</a>
+            <a class="navbar-item is-size-4 has-text-weight-bold" href="/dashboard">Podcast Postings</a>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
@@ -81,7 +81,7 @@
                 <div class="navbar-item">
                     <div class="mr-4 is-size-5 has-text-weight-dark">Welcome, {{member.first_name}}</div>
                     <div class="buttons">
-                        <a class="button is-dark" href="/logout">
+                        <a class="button is-dark has-text-danger-light" href="/logout">
                         Log out
                         </a>
                     </div>
@@ -94,7 +94,7 @@
         <div class="table-container">
             <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                 <thead>
-                    <tr>
+                    <tr class="th is-selected has-background-dark has-text-info">
                         <th>Review Title</th>
                         <th>Podcast Name</th>
                         <th>Category</th>
