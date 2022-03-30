@@ -11,7 +11,7 @@ class Review:
         self.category = data['category']
         self.host = data['host']
         self.stars = data['stars']
-        self.review_text = ['review_text']
+        self.review_text = data['review_text']
         self.member_id = data['member_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
@@ -19,7 +19,7 @@ class Review:
 
     @classmethod
     def create(cls, data):
-        query = "INSERT INTO reviews (review_title, podcast_name, category, host, stars,review_text, member_id) VALUES (%(review_title)s, %(podcast_name)s, %(category)s, %(host)s, %(stars)s, %(review_text)s, %(member_id)s);"
+        query = "INSERT INTO reviews (review_title, podcast_name, category, host, stars, review_text, member_id) VALUES (%(review_title)s, %(podcast_name)s, %(category)s, %(host)s, %(stars)s, %(review_text)s, %(member_id)s);"
         return connectToMySQL(cls.db_name).query_db(query,data)
 
 
@@ -138,8 +138,8 @@ class Review:
                 }
             adder = member.Member(one_reviews_member_info)
             one_review.creator = adder
-            review.append(one_review)
-        return review
+            reviews.append(one_review)
+        return reviews
 
     @classmethod
     def update(cls, data):
