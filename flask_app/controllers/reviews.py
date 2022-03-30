@@ -5,35 +5,36 @@ from flask_app.models.member import Member
 from listennotes import podcast_api
 
 
-@app.route('/recipe/new')
-def new_recipe():
+@app.route('/review/new')
+def new_review():
     if 'member_id' not in session:
         return redirect('/logout')
     data = {
         "id":session['member_id']
     }
-    return render_template('new_recipe.html', member=Member.get_one_by_id(data))
+    return render_template('new_review.html', member=Member.get_one_by_id(data))
 
 
-@app.route('/recipe/create', methods=['POST'])
-def create_recipe():
+@app.route('/review/create', methods=['POST'])
+def create_review():
     if 'member_id' not in session:
         return redirect('/logout')
-    if not Recipe.validate_recipe(request.form):
-        return redirect('/recipe/new')
+    if not Review.validate_review(request.form):
+        return redirect('/review/new')
     data = {
-        "name": request.form['name'],
-        "ingredients": request.form['ingredients'],
-        "instructions": request.form['instructions'],
-        "under_30": int(request.form['under_30']),
-        "category": request.form['category'],
+        "review_title": request.form['review_title'],
+        "podcast_name": request.form['podcast_name'],
+        "category": (request.form['category']),
+        "host": request.form['host'],
+        "stars": request.form['stars'],
+        "review_text": request.form['review_text'],
         "member_id": session["member_id"]
     }
-    Recipe.create(data)
+    Review.create(data)
     return redirect('/dashboard')
 
-@app.route('/recipe/edit/<int:id>')
-def edit_recipe(id):
+@app.route('/review/edit/<int:id>')
+def edit_review(id):
     if 'member_id' not in session:
         return redirect('/logout')
     data = {
@@ -42,28 +43,29 @@ def edit_recipe(id):
     member_data = {
         "id":session['member_id']
     }
-    return render_template("edit_recipe.html",edit=Recipe.get_recipe_by_id(data),member=Member.get_one_by_id(member_data))
+    return render_template("edit_review.html",edit=Review.get_review_by_id(data),member=Member.get_one_by_id(member_data))
 
 
-@app.route('/recipe/update',methods=['POST'])
-def update_recipe():
+@app.route('/review/update',methods=['POST'])
+def update_review():
     if 'member_id' not in session:
         return redirect('/logout')
-    if not Recipe.validate_recipe(request.form):
-        return redirect('/recipe/new')
+    if not Review.validate_review(request.form):
+        return redirect('/review/new')
     data = {
-        "name": request.form["name"],
-        "ingredients": request.form["ingredients"],
-        "instructions": request.form["instructions"],
-        "under_30": int(request.form["under_30"]),
-        "category": request.form['category'],
-        "id": request.form["id"]
+        "review_title": request.form['review_title'],
+        "podcast_name": request.form['podcast_name'],
+        "category": (request.form['category']),
+        "host": request.form['host'],
+        "stars": request.form['stars'],
+        "review_text": request.form['review_text'],
+        "member_id": session["member_id"]
     }
-    Recipe.update(data)
+    Review.update(data)
     return redirect('/dashboard')
 
-@app.route('/recipe/<int:id>')
-def recipe(id):
+@app.route('/review/<int:id>')
+def review(id):
     if 'member_id' not in session:
         return redirect('/logout')
     data = {
@@ -72,19 +74,19 @@ def recipe(id):
     member_data = {
         "id":session['member_id']
     }
-    return render_template("show_recipe.html",recipe=Recipe.get_one_recipe_with_member(data),member=Member.get_one_by_id(member_data))
+    return render_template("show_review.html",review=Review.get_one_review_with_member(data),member=Member.get_one_by_id(member_data))
 
-@app.route('/recipe/destroy/<int:id>')
-def destroy_recipe(id):
+@app.route('/review/destroy/<int:id>')
+def destroy_review(id):
     if 'member_id' not in session:
         return redirect('/logout')
     data = {
         "id":id
     }
-    Recipe.destroy(data)
+    Review.destroy(data)
     return redirect('/dashboard')
 
-@app.route('/recipes/<string:category>')
+@app.route('/reviews/<string:category>')
 def category(category):
     if 'member_id' not in session:
         return redirect('/logout')
@@ -94,22 +96,11 @@ def category(category):
     data_two = {
         "category": category
     }
-    return render_template('category.html', member=Member.get_one_by_id(data), recipes=Recipe.get_all_recipes_from_category(data_two))
+    return render_template('category.html', member=Member.get_one_by_id(data), review=Review.get_all_reviews_from_category(data_two))
 
-@app.route('/recipes/<int:under_30>')
-def under_30(under_30):
-    if 'member_id' not in session:
-        return redirect('/logout')
-    data = {
-        'id': session['member_id']
-    }
-    data_two = {
-        "under_30": under_30
-    }
-    return render_template('under_30.html', member=Member.get_one_by_id(data), recipes=Recipe.get_all_recipes_from_under_30(data_two))
 
 @app.route('/member/<int:id>')
-def member_recipes(id):
+def member_reviews(id):
     if 'member_id' not in session:
         return redirect('/logout')
     data = {
@@ -118,7 +109,7 @@ def member_recipes(id):
     member_data={
         'id': session['member_id']
     }
-    return render_template('member_recipes.html', member = Member.get_one_by_id(member_data), recipes=Recipe.get_all_recipes_from_one_member(data), adder = Member.get_one_by_id(data))
+    return render_template('member_reviews.html', member = Member.get_one_by_id(member_data), reviews=Review.get_all_reviews_from_one_member(data), adder = Member.get_one_by_id(data))
 
 @app.route('/listen')
 def randomPodcast():
@@ -133,4 +124,7 @@ def randomPodcast():
         'description' : data['description'],
         'listenNotesURL' : data['listennotes_url']
     }
-    return render_template('listen.html', randomPodcastData=randomPodcastData)
+    member_data={
+        'id': session['member_id']
+    }
+    return render_template('listen.html', member = Member.get_one_by_id(member_data), randomPodcastData=randomPodcastData)

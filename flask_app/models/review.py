@@ -2,15 +2,16 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 from flask_app.models import member
 
-class Recipe:
-    db_name = 'family_cookbook_schema'
+class Review:
+    db_name = 'podcast_postings_schema'
     def __init__(self, data):
         self.id = data['id']
-        self.name = data['name']
-        self.ingredients = data['ingredients']
-        self.instructions = data['instructions']
-        self.under_30 = data['under_30']
+        self.review_title = data['review_title']
+        self.podcast_name = data['podcast_name']
         self.category = data['category']
+        self.host = data['host']
+        self.stars = data['stars']
+        self.review_text = ['review_text']
         self.member_id = data['member_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
@@ -18,27 +19,27 @@ class Recipe:
 
     @classmethod
     def create(cls, data):
-        query = "INSERT INTO recipes (name, ingredients, instructions, under_30, category, member_id) VALUES (%(name)s, %(ingredients)s, %(instructions)s, %(under_30)s, %(category)s, %(member_id)s);"
+        query = "INSERT INTO reviews (review_title, podcast_name, category, host, stars,review_text, member_id) VALUES (%(review_title)s, %(podcast_name)s, %(category)s, %(host)s, %(stars)s, %(review_text)s, %(member_id)s);"
         return connectToMySQL(cls.db_name).query_db(query,data)
 
 
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM recipes;"
+        query = "SELECT * FROM reviews;"
         result = connectToMySQL(cls.db_name).query_db(query)
-        all_recipes = []
+        all_reviews = []
         for row in result:
-            all_recipes.append( cls(row) )
-        return all_recipes
+            all_reviews.append( cls(row) )
+        return all_reviews
 
     @classmethod
-    def get_all_recipes_with_member(cls):
-        query = "SELECT * FROM recipes JOIN members ON recipes.member_id = members.id;"
+    def get_all_reviews_with_member(cls):
+        query = "SELECT * FROM reviews JOIN members ON reviews.member_id = members.id;"
         results = connectToMySQL(cls.db_name).query_db(query)
-        recipes = []
+        reviews = []
         for row in results:
-            one_recipe = cls(row)
-            one_recipes_member_info = {
+            one_review = cls(row)
+            one_reviews_member_info = {
                 "id": row['members.id'], 
                 "first_name": row['first_name'],
                 "last_name": row['last_name'],
@@ -47,20 +48,20 @@ class Recipe:
                 "created_at": row['members.created_at'],
                 "updated_at": row['members.updated_at']
                 }
-            adder = member.Member(one_recipes_member_info)
-            one_recipe.creator = adder
-            recipes.append(one_recipe)
-        return recipes
+            adder = member.Member(one_reviews_member_info)
+            one_review.creator = adder
+            reviews.append(one_review)
+        return reviews
 
 
     @classmethod
-    def get_all_recipes_from_one_member(cls, data):
-        query = "SELECT * FROM recipes JOIN members ON recipes.member_id = members.id WHERE member_id = %(id)s;"
+    def get_all_reviews_from_one_member(cls, data):
+        query = "SELECT * FROM reviews JOIN members ON reviews.member_id = members.id WHERE member_id = %(id)s;"
         results = connectToMySQL(cls.db_name).query_db(query, data)
-        recipes = []
+        reviews = []
         for row in results:
-            one_recipe = cls(row)
-            one_recipes_member_info = {
+            one_review = cls(row)
+            one_reviews_member_info = {
                 "id": row['members.id'], 
                 "first_name": row['first_name'],
                 "last_name": row['last_name'],
@@ -69,17 +70,17 @@ class Recipe:
                 "created_at": row['members.created_at'],
                 "updated_at": row['members.updated_at']
                 }
-            adder = member.Member(one_recipes_member_info)
-            one_recipe.creator = adder
-            recipes.append(one_recipe)
-        return recipes
+            adder = member.Member(one_reviews_member_info)
+            one_review.creator = adder
+            reviews.append(one_review)
+        return reviews
 
     @classmethod
-    def get_one_recipe_with_member(cls, data):
-        query = "SELECT * FROM recipes JOIN members ON recipes.member_id = members.id WHERE recipes.id = %(id)s;"
+    def get_one_review_with_member(cls, data):
+        query = "SELECT * FROM reviews JOIN members ON reviews.member_id = members.id WHERE reviews.id = %(id)s;"
         results = connectToMySQL(cls.db_name).query_db(query, data)
-        one_recipe = cls(results[0])
-        one_recipes_member_info = {
+        one_review = cls(results[0])
+        one_reviews_member_info = {
             "id": results[0]['members.id'], 
             "first_name": results[0]['first_name'],
             "last_name": results[0]['last_name'],
@@ -88,24 +89,24 @@ class Recipe:
             "created_at": results[0]['members.created_at'],
             "updated_at": results[0]['members.updated_at']
             }
-        adder = member.Member(one_recipes_member_info)
-        one_recipe.creator = adder
-        return one_recipe
+        adder = member.Member(one_reviews_member_info)
+        one_review.creator = adder
+        return one_review
 
     @classmethod
-    def get_recipe_by_id(cls,data):
-        query = "SELECT * FROM recipes WHERE id = %(id)s;"
+    def get_review_by_id(cls,data):
+        query = "SELECT * FROM reviews WHERE id = %(id)s;"
         result = connectToMySQL(cls.db_name).query_db(query,data)
         return cls(result[0])
 
     @classmethod
-    def get_all_recipes_from_category(cls, data):
-        query = "SELECT * FROM recipes JOIN members ON recipes.member_id = members.id WHERE category = %(category)s;"
+    def get_all_reviews_from_category(cls, data):
+        query = "SELECT * FROM reviews JOIN members ON reviews.member_id = members.id WHERE category = %(category)s;"
         results = connectToMySQL(cls.db_name).query_db(query, data)
-        recipes = []
+        reviews = []
         for row in results:
-            one_recipe = cls(row)
-            one_recipes_member_info = {
+            one_review = cls(row)
+            one_reviews_member_info = {
                 "id": row['members.id'], 
                 "first_name": row['first_name'],
                 "last_name": row['last_name'],
@@ -114,19 +115,19 @@ class Recipe:
                 "created_at": row['members.created_at'],
                 "updated_at": row['members.updated_at']
                 }
-            adder = member.Member(one_recipes_member_info)
-            one_recipe.creator = adder
-            recipes.append(one_recipe)
-        return recipes
+            adder = member.Member(one_reviews_member_info)
+            one_review.creator = adder
+            reviews.append(one_review)
+        return reviews
 
     @classmethod
-    def get_all_recipes_from_under_30(cls, data):
-        query = "SELECT * FROM recipes JOIN members ON recipes.member_id = members.id WHERE under_30 = %(under_30)s;"
+    def get_all_reviews_from_under_30(cls, data):
+        query = "SELECT * FROM reviews JOIN members ON reviews.member_id = members.id WHERE under_30 = %(under_30)s;"
         results = connectToMySQL(cls.db_name).query_db(query, data)
-        recipes = []
+        reviews = []
         for row in results:
-            one_recipe = cls(row)
-            one_recipes_member_info = {
+            one_review = cls(row)
+            one_reviews_member_info = {
                 "id": row['members.id'], 
                 "first_name": row['first_name'],
                 "last_name": row['last_name'],
@@ -135,33 +136,36 @@ class Recipe:
                 "created_at": row['members.created_at'],
                 "updated_at": row['members.updated_at']
                 }
-            adder = member.Member(one_recipes_member_info)
-            one_recipe.creator = adder
-            recipes.append(one_recipe)
-        return recipes
+            adder = member.Member(one_reviews_member_info)
+            one_review.creator = adder
+            review.append(one_review)
+        return review
 
     @classmethod
     def update(cls, data):
-        query = "UPDATE recipes SET name = %(name)s, ingredients = %(ingredients)s, instructions = %(instructions)s, under_30 = %(under_30)s, category = %(category)s, updated_at=NOW() WHERE id = %(id)s;"
+        query = "UPDATE reviews SET review_title = %(review_title)s, podcast_name = %(podcast_name)s, category = %(category)s, host = %(host)s, stars = %(stars)s, review_text = %(review_text)s, updated_at = NOW() WHERE id = %(id)s;"
         return connectToMySQL(cls.db_name).query_db(query,data)
 
 
     @classmethod
     def destroy(cls,data):
-        query = "DELETE FROM recipes WHERE id = %(id)s;"
+        query = "DELETE FROM reviews WHERE id = %(id)s;"
         return connectToMySQL(cls.db_name).query_db(query,data)
 
 
     @staticmethod
-    def validate_recipe(recipe):
+    def validate_review(review):
         is_valid = True
-        if len(recipe['name']) < 2:
+        if len(review['review_title']) < 2:
             is_valid = False
-            flash("Name must be at least 3 characters.", 'recipe')
-        if len(recipe['ingredients']) < 3:
+            flash("Review Title must be at least 2 characters.", 'review')
+        if len(review['podcast_name']) < 2:
             is_valid = False
-            flash("Ingredients must be at least 3 characters.", 'recipe')
-        if len(recipe['instructions']) < 3:
+            flash("Podcast Name must be at least 2 characters.", 'review')
+        if len(review['host']) < 2:
             is_valid = False
-            flash("Instructions must be at least 3 characters.", 'recipe')
+            flash("Host(s) must be at least 2 characters.", 'review')
+        if len(review['review_text']) < 3:
+            is_valid = False
+            flash("Review must be at least 3 characters.", 'review')
         return is_valid

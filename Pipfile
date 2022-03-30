@@ -8,6 +8,8 @@ flask = "*"
 pymysql = "*"
 flask-bcrypt = "*"
 bcrypt-flask = "*"
+listennotes = "*"
+werkzeug = "==2.0.3"
 
 [dev-packages]
 

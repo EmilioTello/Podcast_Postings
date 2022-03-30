@@ -7,7 +7,7 @@ import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class Member:
-    db_name = 'family_cookbook_schema'
+    db_name = 'podcast_postings_schema'
     def __init__(self, data):
         self.id = data['id']
         self.first_name = data['first_name']
@@ -16,7 +16,7 @@ class Member:
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.recipes = []
+        self.reviews = []
 
     @classmethod
     def create(cls, data):
