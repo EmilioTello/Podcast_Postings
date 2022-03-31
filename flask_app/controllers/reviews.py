@@ -98,6 +98,42 @@ def category(category):
     }
     return render_template('category.html', member=Member.get_one_by_id(data), reviews=Review.get_all_reviews_from_category(data_two))
 
+@app.route('/reviews/for_<string:podcast_name>')
+def podcast_name(podcast_name):
+    if 'member_id' not in session:
+        return redirect('/logout')
+    data = {
+        'id': session['member_id']
+    }
+    data_two = {
+        "podcast_name": podcast_name
+    }
+    return render_template('podcast_name.html', member=Member.get_one_by_id(data), reviews=Review.get_all_reviews_from_podcast_name(data_two))
+
+@app.route('/reviews/hosted_by_<string:host>')
+def host(host):
+    if 'member_id' not in session:
+        return redirect('/logout')
+    data = {
+        'id': session['member_id']
+    }
+    data_two = {
+        "host": host
+    }
+    return render_template('host.html', member=Member.get_one_by_id(data), reviews=Review.get_all_reviews_from_host(data_two))
+
+@app.route('/reviews/by_<int:stars>')
+def stars(stars):
+    if 'member_id' not in session:
+        return redirect('/logout')
+    data = {
+        'id': session['member_id']
+    }
+    data_two = {
+        "stars": stars
+    }
+    return render_template('stars.html', member=Member.get_one_by_id(data), reviews=Review.get_all_reviews_from_stars(data_two))
+
 
 @app.route('/member/<int:id>')
 def member_reviews(id):

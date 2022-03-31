@@ -121,8 +121,50 @@ class Review:
         return reviews
 
     @classmethod
-    def get_all_reviews_from_under_30(cls, data):
-        query = "SELECT * FROM reviews JOIN members ON reviews.member_id = members.id WHERE under_30 = %(under_30)s;"
+    def get_all_reviews_from_podcast_name(cls, data):
+        query = "SELECT * FROM reviews JOIN members ON reviews.member_id = members.id WHERE podcast_name = %(podcast_name)s;"
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        reviews = []
+        for row in results:
+            one_review = cls(row)
+            one_reviews_member_info = {
+                "id": row['members.id'], 
+                "first_name": row['first_name'],
+                "last_name": row['last_name'],
+                "email": row['email'],
+                "password": row['password'],
+                "created_at": row['members.created_at'],
+                "updated_at": row['members.updated_at']
+                }
+            adder = member.Member(one_reviews_member_info)
+            one_review.creator = adder
+            reviews.append(one_review)
+        return reviews
+
+    @classmethod
+    def get_all_reviews_from_host(cls, data):
+        query = "SELECT * FROM reviews JOIN members ON reviews.member_id = members.id WHERE host = %(host)s;"
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        reviews = []
+        for row in results:
+            one_review = cls(row)
+            one_reviews_member_info = {
+                "id": row['members.id'], 
+                "first_name": row['first_name'],
+                "last_name": row['last_name'],
+                "email": row['email'],
+                "password": row['password'],
+                "created_at": row['members.created_at'],
+                "updated_at": row['members.updated_at']
+                }
+            adder = member.Member(one_reviews_member_info)
+            one_review.creator = adder
+            reviews.append(one_review)
+        return reviews
+
+    @classmethod
+    def get_all_reviews_from_stars(cls, data):
+        query = "SELECT * FROM reviews JOIN members ON reviews.member_id = members.id WHERE stars = %(stars)s;"
         results = connectToMySQL(cls.db_name).query_db(query, data)
         reviews = []
         for row in results:
