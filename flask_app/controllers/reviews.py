@@ -59,7 +59,7 @@ def update_review():
         "host": request.form['host'],
         "stars": request.form['stars'],
         "review_text": request.form['review_text'],
-        "member_id": session["member_id"]
+        "id": request.form["id"]
     }
     Review.update(data)
     return redirect('/dashboard')
