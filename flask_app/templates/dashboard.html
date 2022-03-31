@@ -105,10 +105,10 @@
                     {% for review in reviews %}
                     <tr>
                         <td><a href="/review/{{review.id}}" class="btn btn-info">{{review.review_title}}</a></td>
-                        <td><a href="/reviews/{{review.podcast_name}}" class="btn btn-info">{{review.podcast_name}}</a></td>
+                        <td><a href="/reviews/for_{{review.podcast_name}}" class="btn btn-info">{{review.podcast_name}}</a></td>
                         <td><a href="/reviews/{{review.category}}" class="btn btn-info">{{review.category}}</a></td>
-                        <td><a href="/reviews/{{review.host}}" class="btn btn-info">{{review.host}}</a></td>
-                        <td><a href="/reviews/{{review.stars}}" class="btn btn-info">{{review.stars}}</a></td>
+                        <td><a href="/reviews/hosted_by_{{review.host}}" class="btn btn-info">{{review.host}}</a></td>
+                        <td><a href="/reviews/by_{{review.stars}}" class="btn btn-info">{{review.stars}}</a></td>
                         <td><a href="/member/{{review.member_id}}" class="btn btn-info">{{review.creator.first_name}} {{review.creator.last_name}}</a></td>
                         <td>
                             <a href="/review/{{review.id}}" class="btn btn-info">View</a>
