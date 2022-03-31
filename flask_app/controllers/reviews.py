@@ -59,7 +59,7 @@ def update_review():
         "host": request.form['host'],
         "stars": request.form['stars'],
         "review_text": request.form['review_text'],
-        "member_id": session["member_id"]
+        "id": request.form["id"]
     }
     Review.update(data)
     return redirect('/dashboard')
@@ -96,7 +96,7 @@ def category(category):
     data_two = {
         "category": category
     }
-    return render_template('category.html', member=Member.get_one_by_id(data), review=Review.get_all_reviews_from_category(data_two))
+    return render_template('category.html', member=Member.get_one_by_id(data), reviews=Review.get_all_reviews_from_category(data_two))
 
 
 @app.route('/member/<int:id>')
