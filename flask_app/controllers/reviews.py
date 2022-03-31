@@ -96,7 +96,7 @@ def category(category):
     data_two = {
         "category": category
     }
-    return render_template('category.html', member=Member.get_one_by_id(data), review=Review.get_all_reviews_from_category(data_two))
+    return render_template('category.html', member=Member.get_one_by_id(data), reviews=Review.get_all_reviews_from_category(data_two))
 
 
 @app.route('/member/<int:id>')
